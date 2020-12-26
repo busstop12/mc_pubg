@@ -9,15 +9,13 @@ public class MiningSkill implements Skill {
 
     @Override
     public String getSkillName() {
-        return "MiningSkill";
+        return "mining";
     }
 
     @Override
     public String[][] getExpValues() {
-        String[][] values = {{"coal_ore", "10"},
-                {"iron_ore", "50"},
-                {"gold_iron", "150"},
-                {"diamond_ore", "600"}};
+        String[][] values = {{"minecraft:coal_ore", "10"},
+                {"minecraft:iron_ore", "50"}};
 
         return values;
     }

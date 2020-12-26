@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class AccountManager {
-    private Logger logger;
+    private final Logger logger;
     private File accountsFile;
     private ConfigurationLoader<CommentedConfigurationNode> loader;
     private ConfigurationNode accountsConfig;
 
-    private Mc_PUBG plugin;
+    private final Mc_PUBG plugin;
 
     public AccountManager(Mc_PUBG plugin) {
         this.plugin = plugin;
@@ -45,7 +45,8 @@ public class AccountManager {
 
     public void createAccount(UUID uuid) {
         if (!hasAccount(uuid)) {
-            accountsConfig.getNode(uuid.toString(), "mining_level").setValue("1");
+            accountsConfig.getNode(uuid.toString(), "skills", "mining", "level").setValue(1);
+            accountsConfig.getNode(uuid.toString(), "skills", "mining", "experience").setValue(0);
 
             try {
                 loader.save(accountsConfig);
@@ -61,5 +62,9 @@ public class AccountManager {
 
     public boolean hasAccount(UUID uuid) {
         return accountsConfig.getNode(uuid.toString()).getValue() != null;
+    }
+
+    public ConfigurationNode getAccountsConfig() {
+        return accountsConfig;
     }
 }

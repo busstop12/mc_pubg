@@ -3,6 +3,7 @@ package xyz.idyh.main;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
+import org.spongepowered.api.Game;
 import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
@@ -10,7 +11,6 @@ import org.spongepowered.api.event.game.state.*;
 import org.spongepowered.api.event.network.ClientConnectionEvent;
 import org.spongepowered.api.plugin.Plugin;
 
-//For Logger
 import com.google.inject.Inject;
 import org.slf4j.Logger;
 import xyz.idyh.config.AccountManager;
@@ -37,6 +37,9 @@ public class Mc_PUBG {
     @Inject
     private Logger logger;
 
+    @Inject
+    private Game game;
+
     private ConfigurationNode config;
 
     private AccountManager accountManager;
@@ -62,7 +65,7 @@ public class Mc_PUBG {
 
     @Listener
     public void init(GameInitializationEvent event) {
-
+        game.getEventManager().registerListeners(this, skillManager);
     }
 
     @Listener

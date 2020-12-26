@@ -1,0 +1,2 @@
+xyz/idyh/main/Mc_PUBG.java
+ xyz.idyh.main.Mc_PUBG

@@ -44,17 +44,12 @@ public class AccountManager {
     }
 
     public void createAccount(UUID uuid) {
+        Account account = new Account(plugin, this, uuid);
+
         if (!hasAccount(uuid)) {
-            accountsConfig.getNode(uuid.toString(), "skills", "mining", "level").setValue(1);
-            accountsConfig.getNode(uuid.toString(), "skills", "mining", "experience").setValue(0);
-
-            try {
-                loader.save(accountsConfig);
-
-                logger.info("Successfully created a new player account.");
-            } catch (IOException e) {
-                logger.error("Error creating a new player account.");
-            }
+            account.setSkillLevel("mining", 1);
+            account.setSkillExp("mining", 0);
+            saveConfig();
         } else {
             logger.info("Player has already existed.");
         }
@@ -67,4 +62,15 @@ public class AccountManager {
     public ConfigurationNode getAccountsConfig() {
         return accountsConfig;
     }
+
+    public void saveConfig() {
+        try {
+            loader.save(accountsConfig);
+
+            logger.info("Successfully saved accounts config.");
+        } catch (IOException e) {
+            logger.error("Error saving accounts config.");
+        }
+    }
+
 }

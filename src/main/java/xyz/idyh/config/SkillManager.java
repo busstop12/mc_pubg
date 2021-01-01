@@ -61,11 +61,13 @@ public class SkillManager {
 
     @Listener
     public void onBlockBreak(ChangeBlockEvent event) {
-        Player player = event.getCause().first(Player.class).get();
-        UUID playerUUID = player.getUniqueId();
-        String blockName = event.getTransactions().get(0).getOriginal().getState().getName();
-        int expAmount = skillsConfig.getNode("mining", blockName).getInt();
+        if (event.getCause().first(Player.class).isPresent()) {
+            Player player = event.getCause().first(Player.class).get();
+            UUID playerUUID = player.getUniqueId();
+            String blockName = event.getTransactions().get(0).getOriginal().getState().getName();
+            int expAmount = skillsConfig.getNode("mining", blockName).getInt(0);
 
-        player.sendMessage(Text.of("You broke: ",blockName));
+            player.sendMessage(Text.of("You broke: ", blockName));
+        }
     }
 }
